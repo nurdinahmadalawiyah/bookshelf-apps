@@ -97,16 +97,22 @@ function makeBook(bookObject) {
 
   if (bookObject.isCompleted) {
     const undoButton = document.createElement("button");
+    const undoIcon = document.createElement("i");
+    undoIcon.classList.add("fas", "fa-undo");
     undoButton.classList.add("undo-button");
-    undoButton.innerText = "Belum Selesai dibaca";
+    undoButton.appendChild(undoIcon);
+    undoButton.innerHTML += " Belum Selesai dibaca";
 
     undoButton.addEventListener("click", function () {
       undoBookFromCompleted(bookObject.id);
     });
 
     const trashButton = document.createElement("button");
+    const trashIcon = document.createElement("i");
     trashButton.classList.add("trash-button");
-    trashButton.innerText = "Hapus Buku";
+    trashIcon.classList.add("fas", "fa-trash");
+    trashButton.appendChild(trashIcon);
+    trashButton.innerHTML += " Hapus Buku";
 
     trashButton.addEventListener("click", function () {
       if (
@@ -123,16 +129,22 @@ function makeBook(bookObject) {
     container.append(undoButton, trashButton);
   } else {
     const checkButton = document.createElement("button");
+    const checkIcon = document.createElement("i");
     checkButton.classList.add("check-button");
-    checkButton.innerText = "Selesai dibaca";
+    checkIcon.classList.add("fas", "fa-check");
+    checkButton.appendChild(checkIcon);
+    checkButton.innerHTML += " Selesai dibaca";
 
     checkButton.addEventListener("click", function () {
       addBookToCompleted(bookObject.id);
     });
 
     const trashButton = document.createElement("button");
+    const trashIcon = document.createElement("i");
     trashButton.classList.add("trash-button");
-    trashButton.innerText = "Hapus Buku";
+    trashIcon.classList.add("fas", "fa-trash");
+    trashButton.appendChild(trashIcon);
+    trashButton.innerHTML += " Hapus Buku";
 
     trashButton.addEventListener("click", function () {
       if (
