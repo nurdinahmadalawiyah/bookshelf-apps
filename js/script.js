@@ -77,6 +77,11 @@ function addBook() {
   );
   books.push(bookObject);
 
+  document.getElementById("title").value = "";
+  document.getElementById("author").value = "";
+  document.getElementById("year").value = "";
+  document.getElementById("isCompleted").checked = false;
+
   document.dispatchEvent(new Event(RENDER_EVENT));
   saveData();
 }
