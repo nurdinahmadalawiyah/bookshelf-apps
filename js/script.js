@@ -15,8 +15,9 @@ document.addEventListener(SAVED_EVENT, function () {
   console.log(localStorage.getItem(STORAGE_KEY));
 });
 
+const submitForm = document.getElementById("form");
+
 document.addEventListener("DOMContentLoaded", function () {
-  const submitForm = document.getElementById("form");
   submitForm.addEventListener("submit", function (event) {
     event.preventDefault();
     addBook();
@@ -94,7 +95,6 @@ function makeBook(bookObject) {
   container.append(textContainer);
   container.setAttribute("id", `book-${bookObject.id}`);
 
-
   if (bookObject.isCompleted) {
     const undoButton = document.createElement("button");
     const undoIcon = document.createElement("i");
@@ -107,6 +107,17 @@ function makeBook(bookObject) {
       undoBookFromCompleted(bookObject.id);
     });
 
+    const editButton = document.createElement("button");
+    const editIcon = document.createElement("i");
+    editButton.classList.add("edit-button");
+    editIcon.classList.add("fas", "fa-edit");
+    editButton.appendChild(editIcon);
+    editButton.innerHTML += " Edit Buku"
+
+    editButton.addEventListener("click", function () {
+      editBook(bookObject.id);
+    })
+
     const trashButton = document.createElement("button");
     const trashIcon = document.createElement("i");
     trashButton.classList.add("trash-button");
@@ -126,7 +137,7 @@ function makeBook(bookObject) {
       }
     });
 
-    container.append(undoButton, trashButton);
+    container.append(undoButton, editButton, trashButton);
   } else {
     const checkButton = document.createElement("button");
     const checkIcon = document.createElement("i");
@@ -139,6 +150,17 @@ function makeBook(bookObject) {
       addBookToCompleted(bookObject.id);
     });
 
+    const editButton = document.createElement("button");
+    const editIcon = document.createElement("i");
+    editButton.classList.add("edit-button");
+    editIcon.classList.add("fas", "fa-edit");
+    editButton.appendChild(editIcon);
+    editButton.innerHTML += " Edit Buku"
+
+    editButton.addEventListener("click", function () {
+      editBook(bookObject.id);
+    })
+
     const trashButton = document.createElement("button");
     const trashIcon = document.createElement("i");
     trashButton.classList.add("trash-button");
@@ -158,7 +180,7 @@ function makeBook(bookObject) {
       }
     });
 
-    container.append(checkButton, trashButton);
+    container.append(checkButton, editButton, trashButton);
   }
 
   return container;
@@ -236,4 +258,120 @@ function loadDataFromStorage() {
 
 function searchBook() {
 
+}
+
+function editBook(bookId) {
+  const bookTarget = findBook(bookId);
+
+  if (bookTarget == null) return;
+
+  const titleInput = document.getElementById("title");
+  const authorInput = document.getElementById("author");
+  const yearInput = document.getElementById("year");
+  const isCompletedInput = document.getElementById("isCompleted");
+
+  titleInput.value = bookTarget.title;
+  authorInput.value = bookTarget.author;
+  yearInput.value = bookTarget.year;
+  isCompletedInput.checked = bookTarget.isCompleted;
+
+  const submitButton = document.querySelector(".btn-submit");
+  submitButton.style.display = "none";
+
+  const existingSaveButton = document.querySelector(".save-button");
+  if (existingSaveButton) {
+    existingSaveButton.remove();
+  }
+
+  const existingCancelButton = document.querySelector(".cancel-button");
+  if (existingCancelButton) {
+    existingCancelButton.remove();
+  }
+
+  const buttonContainer = document.createElement("div");
+  buttonContainer.classList.add("button-container");
+
+  const saveButton = document.createElement("button");
+  const saveIcon = document.createElement("i");
+  saveIcon.classList.add("fas", "fa-save");
+  saveButton.classList.add("save-button");
+  saveButton.appendChild(saveIcon);
+  saveButton.innerHTML += " Simpan Perubahan";
+
+  saveButton.addEventListener("click", function () {
+    saveEditedBook(bookTarget.id);
+  });
+
+  const cancelButton = document.createElement("button");
+  const cancelIcon = document.createElement("i");
+  cancelIcon.classList.add("fas", "fa-times");
+  cancelButton.classList.add("cancel-button");
+  cancelButton.appendChild(cancelIcon);
+  cancelButton.innerHTML += " Batal Edit";
+
+  cancelButton.addEventListener("click", function () {
+    cancelEdit();
+  });
+  
+  buttonContainer.append(saveButton, cancelButton);
+
+  submitForm.appendChild(buttonContainer);
+}
+
+function saveEditedBook(bookId) {
+  const bookTarget = findBook(bookId)
+
+  if (bookTarget == null) return;
+
+  const titleInput = document.getElementById("title");
+  const authorInput = document.getElementById("author");
+  const yearInput = document.getElementById("year");
+  const isCompletedInput = document.getElementById("isCompleted");
+
+  bookTarget.title = titleInput.value;
+  bookTarget.author = authorInput.value;
+  bookTarget.year = yearInput.value;
+  bookTarget.isCompleted = isCompletedInput.checked;
+
+  const submitButton = document.querySelector(".btn-submit");
+  submitButton.style.display = "block";
+
+  const saveButton = document.querySelector(".save-button");
+  saveButton.remove();
+
+  const cancelButton = document.querySelector(".cancel-button");
+  cancelButton.remove();
+
+  titleInput.value = "";
+  authorInput.value = "";
+  yearInput.value = "";
+  isCompletedInput.checked = false;
+
+  document.dispatchEvent(new Event(RENDER_EVENT));
+  saveData();
+}
+
+function cancelEdit() {
+  const titleInput = document.getElementById("title");
+  const authorInput = document.getElementById("author");
+  const yearInput = document.getElementById("year");
+  const isCompletedInput = document.getElementById("isCompleted");
+
+  titleInput.value = "";
+  authorInput.value = "";
+  yearInput.value = "";
+  isCompletedInput.checked = false;
+
+  const submitButton = document.querySelector(".btn-submit");
+  submitButton.style.display = "block";
+
+  const existingSaveButton = document.querySelector(".save-button");
+  if (existingSaveButton) {
+    existingSaveButton.remove();
+  }
+
+  const existingCancelButton = document.querySelector(".cancel-button");
+  if (existingCancelButton) {
+    existingCancelButton.remove();
+  }
 }
