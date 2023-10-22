@@ -26,6 +26,11 @@ document.addEventListener("DOMContentLoaded", function () {
   if (isStorageExist()) {
     loadDataFromStorage();
   }
+
+  const searachInput = document.getElementById("search");
+  searachInput.addEventListener("input", function () {
+    searchBook(this.value);
+  });
 });
 
 function generatedId() {
@@ -112,11 +117,11 @@ function makeBook(bookObject) {
     editButton.classList.add("edit-button");
     editIcon.classList.add("fas", "fa-edit");
     editButton.appendChild(editIcon);
-    editButton.innerHTML += " Edit Buku"
+    editButton.innerHTML += " Edit Buku";
 
     editButton.addEventListener("click", function () {
       editBook(bookObject.id);
-    })
+    });
 
     const trashButton = document.createElement("button");
     const trashIcon = document.createElement("i");
@@ -155,11 +160,11 @@ function makeBook(bookObject) {
     editButton.classList.add("edit-button");
     editIcon.classList.add("fas", "fa-edit");
     editButton.appendChild(editIcon);
-    editButton.innerHTML += " Edit Buku"
+    editButton.innerHTML += " Edit Buku";
 
     editButton.addEventListener("click", function () {
       editBook(bookObject.id);
-    })
+    });
 
     const trashButton = document.createElement("button");
     const trashIcon = document.createElement("i");
@@ -256,8 +261,23 @@ function loadDataFromStorage() {
   document.dispatchEvent(new Event(RENDER_EVENT));
 }
 
-function searchBook() {
+function searchBook(keyword) {
+  const uncompletedBookList = document.getElementById("books");
+  uncompletedBookList.innerHTML = "";
 
+  const completedBookList = document.getElementById("completed-books");
+  completedBookList.innerHTML = "";
+
+  for (const bookItem of books) {
+    if (bookItem.title.toLowerCase().includes(keyword.toLowerCase())) {
+      const bookElement = makeBook(bookItem);
+      if (!bookItem.isCompleted) {
+        uncompletedBookList.append(bookElement);
+      } else {
+        completedBookList.append(bookElement);
+      }
+    }
+  }
 }
 
 function editBook(bookId) {
@@ -312,14 +332,14 @@ function editBook(bookId) {
   cancelButton.addEventListener("click", function () {
     cancelEdit();
   });
-  
+
   buttonContainer.append(saveButton, cancelButton);
 
   submitForm.appendChild(buttonContainer);
 }
 
 function saveEditedBook(bookId) {
-  const bookTarget = findBook(bookId)
+  const bookTarget = findBook(bookId);
 
   if (bookTarget == null) return;
 
