@@ -131,15 +131,19 @@ function makeBook(bookObject) {
     trashButton.innerHTML += " Hapus Buku";
 
     trashButton.addEventListener("click", function () {
-      if (
-        confirm(
-          `Apakah anda yakin ingin menghapus buku ${bookObject.title} ?`
-        ) == true
-      ) {
-        removeBookFromCompleted(bookObject.id);
-      } else {
-        alert("Buku batal dihapus");
-      }
+      Swal.fire({
+        title: `Apakah Anda yakin ingin menghapus buku ${bookObject.title} ?`,
+        showCancelButton: true,
+        confirmButtonText: 'Ya, hapus!',
+        cancelButtonText: 'Tidak',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          removeBookFromCompleted(bookObject.id);
+          Swal.fire('Buku telah dihapus!', '', 'success');
+        } else {
+          Swal.fire('Buku batal dihapus', '', 'info');
+        }
+      })
     });
 
     container.append(undoButton, editButton, trashButton);
@@ -174,15 +178,19 @@ function makeBook(bookObject) {
     trashButton.innerHTML += " Hapus Buku";
 
     trashButton.addEventListener("click", function () {
-      if (
-        confirm(
-          `Apakah anda yakin ingin menghapus buku ${bookObject.title} ?`
-        ) == true
-      ) {
-        removeBookFromCompleted(bookObject.id);
-      } else {
-        alert("Buku batal dihapus");
-      }
+      Swal.fire({
+        title: `Apakah Anda yakin ingin menghapus buku ${bookObject.title} ?`,
+        showCancelButton: true,
+        confirmButtonText: 'Ya, hapus!',
+        cancelButtonText: 'Tidak',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          removeBookFromCompleted(bookObject.id);
+          Swal.fire('Buku telah dihapus!', '', 'success');
+        } else {
+          Swal.fire('Buku batal dihapus', '', 'info');
+        }
+      })
     });
 
     container.append(checkButton, editButton, trashButton);
