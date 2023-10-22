@@ -1,50 +1,57 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans&display=swap');
 
 * {
     box-sizing: border-box;
 }
 
 html, body {
-    font-family: Poppins, sans-serif;
+    font-family: "Work Sans", sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    background: #FAFAFA;
 }
 
 header {
-    background: #FFF;
+    background: #FAFAFA;
     padding: 8px;
-    color: #1F4690;
+    color: #292A27;
     text-align: center;
     font-size: 1.3em;
 }
 
 h2 {
-    color: #1F4690;
+    color: #292A27;
 }
+
 .wrapper {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .wrapper .container {
     width: 1024px;
-    border-radius: 8px;
+    border-radius: 20px;
     margin: 16px;
     background: #F8F9FA;
     padding: 16px;
     flex-grow: 1;
     height: fit-content;
+    border: solid #303030 3px;
+    box-shadow: 6px 6px #303030;
 }
 
 
 .item {
-    border-radius: 16px;
+    border-radius: 10px;
     margin-top: 16px;
     padding: 12px 24px 12px 24px;
     background: white;
     display: flex;
     align-items: center;
+    border: solid #303030 2px;
 }
 
 .item > .inner h2 {
@@ -70,49 +77,52 @@ h2 {
 .form-group label {
     margin-bottom: 4px;
     font-size: 18px;
-    font-weight: lighter;
+    font-weight: 400;
 }
 
 .shadow {
-    box-shadow: 0 5px 10px rgba(154, 160, 185, .05), 0 15px 40px rgba(166, 173, 201, .2);
+    box-shadow: 6px 6px #303030;
 }
 
 input[type=text], input[type=number] {
-    font-family: Poppins, sans-serif;
-    background: #fff;
+    font-family: "Work Sans", sans-serif;
+    background: #FAFAFA;
     border: none;
-    box-shadow: 0 5px 10px rgba(154, 160, 185, .05), 0 15px 40px rgba(166, 173, 201, .2);
-    border-radius: 16px;
+    border-bottom: 1px solid #ccc;
     padding: 16px;
-    box-sizing: border-box;
     margin-bottom: 8px;
     font-size: 24px;
 }
 
+input[type=text]:focus, input[type=number]:focus {
+    outline: none;
+    border-bottom: 2px solid #000;
+}
+
 .btn-submit, #searchSubmit {
     width: fit-content;
-    background: #1F4690;
-    font-family: Poppins, sans-serif;
-    border-radius: 30px;
+    background: #2DE2EE;
+    font-family: "Work Sans", sans-serif;
+    border-radius: 10px;
     padding: 12px 24px;
-    border: none;
-    color: white;
+    color: #000000;
     font-size: 18px;
     margin-top: 24px;
     align-self: flex-end;
     cursor: pointer;
+    border: solid #303030 2px;
+    box-shadow: 6px 6px #303030;
+    transition: box-shadow 0.3s ease;
 }
 
 .btn-submit:hover {
-    background: #FFFFFF;
-    color: #1F4690;
-    border: 2px solid #1F4690;
+    box-shadow: none;
 }
 
 #searchSubmit {
     width: fit-content;
     background: #1F4690;
-    font-family: Poppins, sans-serif;
+    font-family: "Work Sans", sans-serif;
     border-radius: 30px;
     padding: 12px 80px;
     border: none;
@@ -147,56 +157,62 @@ input[type=text], input[type=number], .btn-submit:focus {
 
 .check-button {
     width: fit-content;
-    background: green;
-    font-family: Poppins, sans-serif;
-    border-radius: 30px;
+    background: #D7EF31;
+    font-family: "Work Sans", sans-serif;
+    border-radius: 10px;
     padding: 12px 24px;
     border: none;
-    color: white;
+    color: #000000;
     font-size: 14px;
     margin-left: auto;
+    cursor: pointer;
+    border: solid #303030 2px;
+    box-shadow: 6px 6px #303030;
+    transition: box-shadow 0.3s ease;
 }
 
 .check-button:hover {
-    background: #FFF;
-    color: green;
-    border: 1px solid green;
+    box-shadow: none;
 }
 
 .trash-button {
     width: fit-content;
-    background: red;
-    font-family: Poppins, sans-serif;
-    border-radius: 30px;
+    background: #F99D6C;
+    font-family: "Work Sans", sans-serif;
+    border-radius: 10px;
     padding: 12px 24px;
     border: none;
-    color: white;
+    color: #000000;
     font-size: 14px;
     margin-left: 10px;
+    cursor: pointer;
+    border: solid #303030 2px;
+    box-shadow: 6px 6px #303030;
+    transition: box-shadow 0.3s ease;
 }
 
 .trash-button:hover {
-    background: #FFF;
-    color: red;
-    border: 1px solid red;
+    box-shadow: none;
 }
 
 .undo-button {
     width: fit-content;
-    background: green;
-    font-family: Poppins, sans-serif;
-    border-radius: 30px;
+    background: #FFF500;
+    font-family: "Work Sans", sans-serif;
+    border-radius: 10px;
     padding: 12px 24px;
     border: none;
-    color: white;
+    color: #000000;
     font-size: 14px;
     margin-left: auto;
+    cursor: pointer;
+    border: solid #303030 2px;
+    box-shadow: 6px 6px #303030;
+    transition: box-shadow 0.3s ease;
 }
 
 .undo-button:hover {
-    background: #FFF;
-    color: green;
-    border: 1px solid green;
+    box-shadow: none;   
 }
 
 .check-button:focus, .trash-button {
